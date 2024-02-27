@@ -16,7 +16,7 @@ jobs:
 
 
       - name: Set up Terraform CLI credentials
-        run: echo "credentials \"app.terraform.io\" { token = \"${{ secrets.TFC_API_TOKEN }}\" }"
+        run: echo "credentials \"app.terraform.io\" { token = \"${{ secrets.TFC_API_TOKEN }}\" }" > ~/.terraformrc
 
       - name: Terraform Init
         id: init
