@@ -19,10 +19,3 @@ jobs:
     secrets:
       cli_config_credentials_token: ${{ secrets.TFC_API_TOKEN }}
 
-  Destroy:
-    needs: Destroy
-    uses: RekhuGopal/aws_eks_labs/.github/workflows/aws_tf_destroy.yml@main
-    with:
-      gh_environment: dev
-    secrets:
-      cli_config_credentials_token: ${{ secrets.TFC_API_TOKEN }}

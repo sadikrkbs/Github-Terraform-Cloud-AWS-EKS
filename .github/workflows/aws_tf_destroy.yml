@@ -1,17 +1,7 @@
-### Reusable workflow to destroy terraform deployment ###
-name: "Destroy_TF_Deployment"
+name: "Destroy_TF_Deployment_Manual"
+
 on:
-  workflow_call:
-    inputs:
-      tf_version:
-        description: 'Specifies version of Terraform to use. e.g: 1.1.0 Default=latest.'
-        required: false
-        type: string
-        default: latest
-    secrets:
-      cli_config_credentials_token:
-        description: 'cli config credentials token'
-        required: true
+  workflow_dispatch: {}
 
 jobs:
   destroy-deployment:
@@ -26,7 +16,7 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2.0.2
         with:
-          terraform_version: ${{ inputs.tf_version }}
+          terraform_version: latest
           cli_config_credentials_token: ${{ secrets.cli_config_credentials_token }}
 
       - name: Terraform Init
