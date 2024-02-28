@@ -1,38 +1,23 @@
-name: "Destroy_TF_Deployment_Manual"
+name: Destroy EKS Cluster
 
 on:
-  workflow_dispatch: {}
-
+  workflow_dispatch:
 jobs:
-  destroy-deployment:
+  destroy-cluster:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        shell: bash
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3.1.0
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-#      - name: Set up Terraform CLI credentials
-#        run:
-#          export TFC_API_TOKEN="${{ secrets.TFC_API_TOKEN }}"
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2.0.2
+        with:
 
+          cli_config_credentials_token: ${{ secrets.TFC_API_A }}
 
       - name: Terraform Init
-        id: init
         run: terraform init
-        env:
-          TFC_API_TOKEN: ${{ secrets.TFC_API_TOKEN }}
-      
 
-      - name: Show Destroy plan
-        run: terraform plan -destroy
-        continue-on-error: true
-
-      - name: Destroy resources jobs
-        id: destroy
-        run: terraform destroy -auto-approve
-
-      - name: Terraform Destroy Status
-        if: steps.destroy.outcome == 'failure'
-        run: exit 1
+      - name: Terraform Destroy
+        run: terraform destroy -auto-approv
