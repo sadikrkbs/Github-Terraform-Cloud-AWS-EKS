@@ -14,10 +14,8 @@ jobs:
         uses: actions/checkout@v3.1.0
 
       - name: Set up Terraform CLI credentials
-        env:
-          TFC_API_TOKEN: ${{ secrets.TFC_API_TOKEN }}
         run: |
-          export TFC_API_TOKEN="${TFC_API_TOKEN}"
+          export TFC_API_TOKEN="${{ secrets.TFC_API_TOKEN }}"
       
 
       - name: Terraform Init
