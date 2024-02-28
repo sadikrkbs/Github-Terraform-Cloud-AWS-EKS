@@ -13,19 +13,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3.1.0
 
-      - name: Set up Terraform CLI credentials
-        run: echo "credentials \"app.terraform.io\" { token = \"$TFC_API_TOKEN\" }" > ~/.terraformrc
+      - name: Show Destroy plan
+        run: terraform plan -destroy
+        continue-on-error: true
 
-      - name: Terraform Init
-        id: init
-        run: terraform init
-        env:
-          TFC_API_TOKEN: ${{ secrets.TFC_API_TOKEN }}
-
-      - name: Terraform Destroy
+      - name: Destroy resources jobs
         id: destroy
         run: terraform destroy -auto-approve
-        continue-on-error: true
 
       - name: Terraform Destroy Status
         if: steps.destroy.outcome == 'failure'

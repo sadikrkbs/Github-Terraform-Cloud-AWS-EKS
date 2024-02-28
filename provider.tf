@@ -21,7 +21,7 @@ backend "remote" {
 		organization = "SadiTerraform"
 
 		workspaces {
-			name = "Sadi-AWS"
+			name = "sadiaws"
 		}
 	}
 }
